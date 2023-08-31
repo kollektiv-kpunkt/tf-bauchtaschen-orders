@@ -1,7 +1,7 @@
 @php
     use App\Models\Order;
 
-    $orders = Order::all();
+    $orders = Order::where("status", "!=", "overdue")->get();
     $count = $orders->count();
     if ($count > env("NO_PRODUCED", 400)) {
         $count = env("NO_PRODUCED", 400);

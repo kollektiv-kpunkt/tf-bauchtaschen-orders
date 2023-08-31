@@ -1,7 +1,7 @@
 @php
     use App\Models\Order;
 
-    $orders = Order::all();
+    $orders = Order::where("status", "!=", "overdue")->get();
     $count = $orders->count();
 @endphp
 <div class="tfb-order-form max-w-2xl mx-auto px-4 md:px-6 pt-12">

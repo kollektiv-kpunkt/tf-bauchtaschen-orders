@@ -34,5 +34,11 @@ class PaymentReminder extends Command
             $order->save();
             $order->sendReminder();
         }
+
+        $overdues = \App\Models\Order::where('status', '!=', 'paid')->where('reminders', '>=', 3)->get();
+        foreach ($overdues as $overdue) {
+            $overdue->status = 'overdue';
+            $overdue->save();
+        }
     }
 }
