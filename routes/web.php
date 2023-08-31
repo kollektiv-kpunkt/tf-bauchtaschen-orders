@@ -23,3 +23,4 @@ Route::prefix("order")->group(function () {
     Route::get("/{order:orderId}", [OrderController::class, "show"])->name("order.show");
 });
 
+Route::post("/rnw-hook", [OrderController::class, "hook"])->name("order.hook");

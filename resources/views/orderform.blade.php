@@ -21,53 +21,9 @@
                 <b>Hilfst du mir, diese Botschaft in die Welt zu tragen?</b> Unterstütze meinen Wahlkampf und bestelle jetzt deine Bauchtasche.
             </p>
             <p>
-                <b>Wir haben eine limitierte Auflage von 500 Bauchtaschen machen lassen.</b> Sichere dir jetzt dein Exemplar! Eine Bauchtasche kostet CHF 15. Mit dem Soli-Preis von CHF 25 hilfst du mir, mit meinem Wahlkampf noch mehr Menschen zu erreichen.
+                <b>Wir haben eine limitierte Auflage von {{env("NO_PRODUCED", 400)}} Bauchtaschen machen lassen.</b> Sichere dir jetzt dein Exemplar! Eine Bauchtasche kostet CHF 15. Mit dem Soli-Preis von CHF 25 hilfst du mir, mit meinem Wahlkampf noch mehr Menschen zu erreichen.
             </p>
         </div>
-        <div class="tfb-order-form max-w-xl mx-auto px-4 md:px-6 pt-12">
-            <div class="tfb-order-form--inner bg-white p-8 shadow-xl">
-                <h2 class="text-2xl text-red text-center">Jetzt Bauchtasche bestellen</h2>
-                <form action="{{ route('order.store') }}" class="mt-10" method="POST">
-                    @csrf
-                    <div class="tfb-form-group">
-                        <label for="fname">Vorname</label>
-                        <input type="text" name="fname" id="fname" required>
-                    </div>
-                    <div class="tfb-form-group">
-                        <label for="lname">Nachname</label>
-                        <input type="text" name="lname" id="lname" required>
-                    </div>
-                    <div class="tfb-form-group tfb-form-group__full">
-                        <label for="email">E-Mail Adresse</label>
-                        <input type="email" name="email" id="email" required>
-                    </div>
-                    <div class="tfb-form-group tfb-form-group__full">
-                        <label for="street">Strasse, Nr.</label>
-                        <input type="text" name="street" id="street" required>
-                    </div>
-                    <div class="tfb-form-group">
-                        <label for="zip">PLZ</label>
-                        <input type="text" name="zip" id="zip" required>
-                    </div>
-                    <div class="tfb-form-group">
-                        <label for="city">Ort</label>
-                        <input type="text" name="city" id="city" required>
-                    </div>
-                    <div class="tfb-form-group tfb-form-group__full">
-                        <label for="phone">Telefonnummer</label>
-                        <input type="text" name="phone" id="phone" placeholder="optional">
-                    </div>
-                    <div class="tfb-form-group tfb-form-group__full tfb-form-group__checkbox">
-                        <input type="checkbox" name="optin" id="optin" checked>
-                        <label for="optin">Ich bin einverstanden, dass mich Tamara Funiciello auf dem Laufenden hält. <a href="https://tamarafuniciello.ch/datenschutz" target="_blank">Mehr Informationen im Datenschutz.</a></label>
-                    </div>
-                    <div class="tfb-form-group tfb-form-group__full">
-                        <button type="submit" class="tfb-button w-full">
-                            Bauchtasche bestellen
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <x-form />
     </div>
 </x-app-layout>

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('orderId')->unique();
-            $table->string('status');
+            $table->string("hash");
+            $table->string('status')->default('pending_payment');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');

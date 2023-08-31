@@ -8,6 +8,11 @@
     @media (min-width: 1006px) {
         --offset: 250px;
     }
+
+    &--nogradient {
+        background-image: none;
+        background-color: theme('colors.ochre');
+    }
 }
 
 .tfb-order-form {
@@ -23,6 +28,10 @@
             row-gap: 0.25rem;
 
             &.tfb-form-group__full {
+                grid-column: 1 / -1;
+            }
+
+            @media (max-width: 767px) {
                 grid-column: 1 / -1;
             }
 
@@ -42,7 +51,7 @@
                     font-weight: 400;
                     text-transform: none;
                     width: auto;
-                    margin-top: -0.25rem;
+                    margin-top: -0.5rem;
                 }
             }
 
