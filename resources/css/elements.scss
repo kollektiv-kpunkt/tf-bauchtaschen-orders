@@ -1,0 +1,80 @@
+.tfb-header {
+    background-image: linear-gradient(180deg, #ffffff 0%, #ffffff calc(100% - var(--offset, 25vw)), theme('colors.ochre') calc(100% - var(--offset, 25vw)), theme('colors.ochre') 100%);
+
+    @media (max-width: 767px) {
+        --offset: 25vw;
+    }
+
+    @media (min-width: 1006px) {
+        --offset: 250px;
+    }
+}
+
+.tfb-order-form {
+    form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 1.5rem;
+        column-gap: 1rem;
+
+        .tfb-form-group {
+            display: flex;
+            flex-wrap: wrap;
+            row-gap: 0.25rem;
+
+            &.tfb-form-group__full {
+                grid-column: 1 / -1;
+            }
+
+            label {
+                font-weight: 900;
+                text-transform: uppercase;
+                width: 100%;
+            }
+
+            &.tfb-form-group__checkbox {
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: flex-start;
+                gap: 0.5rem;
+
+                label {
+                    font-weight: 400;
+                    text-transform: none;
+                    width: auto;
+                    margin-top: -0.25rem;
+                }
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            input[type="number"],
+            textarea {
+                width: 100%;
+                border: transparent 2px solid;
+                border-bottom: theme("colors.red.DEFAULT") 2px solid;
+                padding: 0.25rem 0.1rem;
+                background-color: transparent;
+
+                &:focus {
+                    outline: none;
+                    border: theme("colors.red.60") 2px solid;
+                }
+            }
+        }
+    }
+}
+
+.tfb-button {
+    background-color: theme("colors.red.DEFAULT");
+    color: theme("colors.white");
+    padding: 0.5rem 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        background-color: theme("colors.red.60");
+    }
+}
