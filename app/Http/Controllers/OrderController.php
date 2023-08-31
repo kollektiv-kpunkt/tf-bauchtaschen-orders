@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderPlaced;
 use App\Models\Order;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -32,19 +34,21 @@ class OrderController extends Controller
         $validated = $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:orders',
             'street' => 'required',
             'zip' => 'required',
             'city' => 'required',
             'phone' => 'nullable',
             'optin' => 'nullable'
+        ], [
+            'email.unique' => 'Mit dieser E-Mail-Adresse wurde bereits eine Bestellung getätigt. Sorry, wir können nur eine Bestellung pro E-Mail-Adresse annehmen.',
+            'required' => 'Bitte fülle dieses Feld aus.'
         ]);
         $order = new Order();
         $order->orderId = Str::uuid();
         $order->hash = bin2hex(random_bytes(64));
         $order->fill($validated);
-        $order->save();
-        return redirect()->route('order.show', [
+        $redirect = redirect()->route('order.show', [
             "order" => $order,
             "rnw-stored_customer_firstname" => $order->firstname,
             "rnw-stored_customer_lastname" => $order->lastname,
@@ -54,6 +58,20 @@ class OrderController extends Controller
             "rnw-stored_customer_city" => $order->city,
             "rnw-stored_customer_salutation" => "neutral"
         ]);
+        $order->orderUrl = $redirect->getTargetUrl();
+        $order->save();
+        try {
+            Mail::to($request->email)
+                ->cc(env('MAIL_FROM_ADDRESS'))
+                ->send(new OrderPlaced($order));
+                return $redirect;
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => "error",
+                'message' => 'Something went wrong. Please try again later.',
+                "errors" => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**

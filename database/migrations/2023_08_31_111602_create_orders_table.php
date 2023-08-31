@@ -19,13 +19,15 @@ return new class extends Migration
             $table->string('status')->default('pending_payment');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('street');
             $table->string('zip');
             $table->string('city');
             $table->string('phone')->nullable();
             $table->string('donation')->default('0');
             $table->boolean('optin')->default(false);
+            $table->string('orderUrl', 2048);
+            $table->integer('reminders')->default(0);
         });
     }
 

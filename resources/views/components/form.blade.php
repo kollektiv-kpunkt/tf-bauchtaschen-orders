@@ -13,32 +13,52 @@
                 @csrf
                 <div class="tfb-form-group">
                     <label for="firstname">Vorname</label>
-                    <input type="text" name="firstname" id="firstname" required>
-
+                    <input type="text" name="firstname" id="firstname" required value="{{old("firstname")}}">
+                    @error('firstname')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="tfb-form-group">
                     <label for="lastname">Nachname</label>
-                    <input type="text" name="lastname" id="lastname" required>
+                    <input type="text" name="lastname" id="lastname" required value="{{old("lastname")}}">
+                    @error('lastname')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="tfb-form-group tfb-form-group__full">
                     <label for="email">E-Mail Adresse</label>
-                    <input type="email" name="email" id="email" required>
+                    <input type="email" name="email" id="email" required value="{{old("email")}}">
+                    @error('email')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="tfb-form-group tfb-form-group__full">
                     <label for="street">Strasse, Nr.</label>
-                    <input type="text" name="street" id="street" required>
+                    <input type="text" name="street" id="street" required value="{{old("street")}}">
+                    @error('street')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="tfb-form-group">
                     <label for="zip">PLZ</label>
-                    <input type="text" name="zip" id="zip" required>
+                    <input type="text" name="zip" id="zip" required value="{{old("zip")}}">
+                    @error('zip')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="tfb-form-group">
                     <label for="city">Ort</label>
-                    <input type="text" name="city" id="city" required>
+                    <input type="text" name="city" id="city" required value="{{old("city")}}">
+                    @error('city')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="tfb-form-group tfb-form-group__full">
                     <label for="phone">Telefonnummer</label>
-                    <input type="text" name="phone" id="phone" placeholder="optional">
+                    <input type="text" name="phone" id="phone" placeholder="optional" value="{{old("phone")}}">
+                    @error('phone')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="tfb-form-group tfb-form-group__full tfb-form-group__checkbox">
                     <input type="checkbox" name="optin" id="optin" checked value=1>
@@ -55,3 +75,11 @@
         @endif
     </div>
 </div>
+
+@if ($errors->any())
+    <script>
+        window.addEventListener('load', function() {
+            document.querySelector(".tfb-order-form").scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+@endif
