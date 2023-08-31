@@ -51,7 +51,8 @@ class OrderController extends Controller
             "rnw-stored_customer_email" => $order->email,
             "rnw-stored_customer_street" => $order->street,
             "rnw-stored_customer_zip_code" => $order->zip,
-            "rnw-stored_customer_city" => $order->city
+            "rnw-stored_customer_city" => $order->city,
+            "rnw-stored_customer_salutation" => "neutral"
         ]);
     }
 
@@ -93,6 +94,20 @@ class OrderController extends Controller
      */
     public function hook(Request $request)
     {
-        file_put_contents(storage_path("logs/webhook.log"), json_encode($request->all()) . "\n", FILE_APPEND);
+        $validated = $request->validate([
+            "stored_orderId" => "required",
+            "stored_hash" => "required",
+            "amount" => "required"
+        ]);
+        $validated["amount"] = $validated["amount"] / 100;
+        $order = Order::where("orderId", $validated["stored_orderId"])->firstOrFail();
+        if ($order->hash !== $validated["stored_hash"]) {
+            abort(403);
+        }
+        $order->donation = $order->donation + $validated["amount"];
+        if ($order->donation >= env("MIN_DONATION", 15)) {
+            $order->status = "paid";
+        }
+        $order->save();
     }
 }
