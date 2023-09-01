@@ -24,3 +24,5 @@ Route::prefix("order")->group(function () {
 });
 
 Route::post("/rnw-hook", [OrderController::class, "hook"])->name("order.hook");
+
+include_once __DIR__ . "/auth.php";

@@ -87,3 +87,12 @@
         background-color: theme("colors.red.60");
     }
 }
+
+
+:root {
+    --tamaro-primary-color: theme("colors.red.DEFAULT");
+    --tamaro-primary-color__hover: white;
+    --tamaro-primary-bg-color: white;
+    --tamaro-border-color: black;
+    --tamaro-bg-color: white;
+}

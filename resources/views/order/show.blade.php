@@ -14,16 +14,51 @@
                     <b>Danke, dass du mich unterstützt!</b> Bitte nutze das untenstehende Formular, um deine Bauchtasche zu bezahlen. Damit wir unsere Kosten decken können, kostet eine Bauchtasche CHF 15. Mit dem Soli-Preis von CHF 25 oder mehr hilfst du mir, mit meinem Wahlkampf noch mehr Menschen zu erreichen.
                 </p>
                 <div class="tfb-payment-form mt-12">
-                    <div id="go" class="dds-widget-container" data-widget="lema"></div><script language="javascript" src="https://widget.raisenow.com/widgets/lema/tamar-49d0/js/dds-init-widget-de.js" type="text/javascript"></script>
+                    <div class="rnw-widget-container"></div>
+                    <script src="https://tamaro.raisenow.com/tamar-49d0/latest/widget.js"></script>
                     <script>
-                    window.rnwWidget = window.rnwWidget || {};
-                    window.rnwWidget.configureWidget = window.rnwWidget.configureWidget || [];
-                    window.rnwWidget.configureWidget.push(function(options) {
-                        options.translations.step_amount.onetime_amounts = [{text: '15', value: '1500'}, {text: '25', value: '2500'}, {text: '35', value: '3500'}, {text: '50', value: '5000'}];
-                        options.defaults['stored_orderId'] = "{{$order->orderId}}";
-                        options.defaults['stored_hash'] = "{{$order->hash}}";
-                    });
-                    </script>
+                    window.rnw.tamaro.runWidget('.rnw-widget-container', {
+                        paymentWidgetBlocks: [ //Schritt 1
+                            "payment_amounts_and_intervals",
+                            "payment_payment_methods",
+                            "payment_profile",
+                            "payment_address",
+                            "payment_cover_fee"
+                        ],
+                        language: 'de',
+                        amounts: [
+                            {
+                                "if": "paymentType() == onetime",
+                                "then": [15,25,35,50],
+                            },
+                        ],
+                        purposes: ["p1"],
+                        translations: { //Schritt 3
+                                de: {
+                                purposes: {
+                                    p1: 'Wir stören, bis sie uns hören! Bauchtasche',
+                                }
+                            },
+                        },
+                        showStoredCustomerStreetNumber: false,
+                        showStoredCustomerStreet2: false,
+                        showStoredCustomerMessage: false,
+                        paymentFormPrefill: {
+                            stored_orderId: "{{$order->orderId}}",
+                            stored_hash: "{{$order->hash}}",
+                            stored_customer_optin: {{$order->optin | false}},
+                            stored_customer_donation_receipt: true,
+                            stored_cover_transaction_fee: true,
+                            stored_customer_firstname : "{{$order->firstname}}",
+                            stored_customer_lastname : "{{$order->lastname}}",
+                            stored_customer_email : "{{$order->email}}",
+                            stored_customer_street : "{{$order->street}}",
+                            stored_customer_zip_code : "{{$order->zip}}",
+                            stored_customer_city : "{{$order->city}}",
+                            stored_customer_country : "CH",
+                            stored_customer_salutation: "none"
+                        }
+                    })</script>
                 </div>
             @else
                 <p>

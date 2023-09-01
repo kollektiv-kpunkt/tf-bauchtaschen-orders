@@ -48,16 +48,7 @@ class OrderController extends Controller
         $order->orderId = Str::uuid();
         $order->hash = bin2hex(random_bytes(64));
         $order->fill($validated);
-        $redirect = redirect()->route('order.show', [
-            "order" => $order,
-            "rnw-stored_customer_firstname" => $order->firstname,
-            "rnw-stored_customer_lastname" => $order->lastname,
-            "rnw-stored_customer_email" => $order->email,
-            "rnw-stored_customer_street" => $order->street,
-            "rnw-stored_customer_zip_code" => $order->zip,
-            "rnw-stored_customer_city" => $order->city,
-            "rnw-stored_customer_salutation" => "neutral"
-        ]);
+        $redirect = redirect()->route('order.show', $order);
         $order->orderUrl = $redirect->getTargetUrl();
         $order->save();
         try {
