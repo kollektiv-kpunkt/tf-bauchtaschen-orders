@@ -7,6 +7,8 @@ use App\Models\Order;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Exports\OrderExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -118,5 +120,13 @@ class OrderController extends Controller
             $order->status = "paid";
         }
         $order->save();
+    }
+
+    /**
+     * Export all orders to Excel.
+     */
+    public function export()
+    {
+        return Excel::download(new OrderExport, now() . "-orders.xlsx");
     }
 }

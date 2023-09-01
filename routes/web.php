@@ -23,6 +23,14 @@ Route::prefix("order")->group(function () {
     Route::get("/{order:orderId}", [OrderController::class, "show"])->name("order.show");
 });
 
+Route::prefix("admin")->middleware("auth")->group(function () {
+    Route::get("/", function () {
+        return view("admin.index");
+    })->name("admin");
+
+    Route::get("/orders/download", [OrderController::class, "export"])->name("order.download");
+});
+
 Route::post("/rnw-hook", [OrderController::class, "hook"])->name("order.hook");
 
 include_once __DIR__ . "/auth.php";
