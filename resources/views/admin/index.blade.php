@@ -1,6 +1,10 @@
 <x-app-layout>
-    <div class="px-4 md:px-6 py-4 bg-ochre">
+    <div class="px-4 md:px-6 py-4 bg-ochre flex justify-between">
         <x-app-logo />
+        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="underline">Logout</button>
+        </form>
     </div>
     <div class="tfb-header tfb-header--nogradient">
         <div class="tfb-header--inner px-4 md:px-6 py-8">
