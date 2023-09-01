@@ -91,8 +91,13 @@
 
 :root {
     --tamaro-primary-color: theme("colors.red.DEFAULT");
-    --tamaro-primary-color__hover: white;
+    --tamaro-primary-color__hover: theme("colors.red.60");
     --tamaro-primary-bg-color: white;
-    --tamaro-border-color: black;
-    --tamaro-bg-color: white;
+    --tamaro-text-color: theme("colors.slate.700");
+    --tamaro-bg-color__hover: theme("colors.red.20") --tamaro-border-color: theme("colors.slate.700");
+
+    --tamaro-button-primary-color: white;
+    --tamaro-button-primary-color__hover: white;
+    --tamaro-button-primary-bg-color: theme("colors.red.DEFAULT");
+    --tamaro-button-primary-bg-color__hover: theme("colors.red.120");
 }
