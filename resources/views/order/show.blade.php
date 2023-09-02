@@ -67,7 +67,6 @@
 
                         let validAmounts = [...Array(99999).keys()];
                         validAmounts = validAmounts.slice(15);
-                        console.log(validAmounts);
 
                         // adding rules for a custom field
                         paymentValidations['amount'] = {
