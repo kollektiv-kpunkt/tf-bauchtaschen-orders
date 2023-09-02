@@ -34,7 +34,7 @@
                         ],
                         purposes: ["p1"],
                         translations: { //Schritt 3
-                                de: {
+                            de: {
                                 purposes: {
                                     p1: 'Wir stören, bis sie uns hören! Bauchtasche',
                                 }
@@ -58,7 +58,27 @@
                             stored_customer_country : "CH",
                             stored_customer_salutation: "none"
                         }
-                    })</script>
+                    })
+
+                    function setupCustomFieldValidation(event) {
+                        var widget = window['widget'] = event.data.api;
+                        var paymentValidations = window.rnw.tamaro.toJS(widget.computedConfig.paymentValidations);
+
+
+                        let validAmounts = [...Array(99999).keys()];
+                        validAmounts = validAmounts.slice(15);
+                        console.log(validAmounts);
+
+                        // adding rules for a custom field
+                        paymentValidations['amount'] = {
+                            in: validAmounts,
+                        };
+
+                        widget.config.paymentValidations = paymentValidations;
+                    }
+
+                        window.rnw.tamaro.events["afterCreate"].subscribe(setupCustomFieldValidation);
+                    </script>
                 </div>
             @else
                 <p>
